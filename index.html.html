@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WobblyWorlds — Fictional Nonsense, Lovingly Written</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #A32D2D;
+      --red-light: #D85A30;
+      --green: #3B6D11;
+      --green-light: #639922;
+      --bg: #fdf8f2;
+      --bg-secondary: #f4ede0;
+      --text: #1e1a14;
+      --text-muted: #6b5e4e;
+      --border: #c9b99a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .blog {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* HEADER */
+    .site-header {
+      text-align: center;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 3px double var(--red);
+    }
+    .site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1;
+    }
+    .site-name em { color: var(--red); font-style: italic; }
+    .site-ornament { color: var(--green); font-size: 18px; margin: 0.5rem 0; letter-spacing: 0.3em; }
+    .site-tagline { font-style: italic; font-size: 15px; color: var(--text-muted); }
+    .site-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+    .site-nav a {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .site-nav a:hover { color: var(--red); }
+
+    /* HERO */
+    .chapter-label {
+      text-align: center;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .hero {
+      border: 2px solid var(--red);
+      border-radius: 4px;
+      padding: 2.5rem 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      text-align: center;
+      background: var(--bg-secondary);
+    }
+    .hero::before {
+      content: '❧';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-secondary);
+      padding: 0 12px;
+      color: var(--red);
+      font-size: 24px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.25;
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .hero-divider { color: var(--green); letter-spacing: 0.4em; font-size: 14px; margin-bottom: 1rem; }
+    .hero-excerpt {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 1.25rem;
+      font-style: italic;
+    }
+    .hero-meta { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 1.25rem; }
+    .read-btn {
+      display: inline-block;
+      padding: 9px 26px;
+      border: 2px solid var(--red);
+      color: var(--red);
+      font-family: 'EB Garamond', serif;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.15s, color 0.15s;
+    }
+    .read-btn:hover { background: var(--red); color: #fff; }
+
+    /* SECTION HEADING */
+    .section-heading {
+      text-align: center;
+      margin: 2rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-heading::before,
+    .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--green); }
+    .section-heading span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    /* STORY LIST */
+    .stories-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+    .story-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 1rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      align-items: start;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.1s;
+    }
+    .story-item:hover .story-title { color: var(--red); }
+    .story-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--red);
+      line-height: 1;
+      opacity: 0.45;
+      padding-top: 4px;
+    }
+    .story-tag {
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.35;
+      margin-bottom: 0.35rem;
+      transition: color 0.15s;
+    }
+    .story-excerpt { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 0.35rem; }
+    .story-meta { font-size: 12px; color: var(--text-muted); letter-spacing: 0.03em; }
+
+    /* NEWSLETTER */
+    .colophon {
+      border: 2px solid var(--green);
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      background: var(--bg-secondary);
+    }
+    .colophon::before {
+      content: '✦';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-secondary);
+      padding: 0 12px;
+      color: var(--green);
+      font-size: 20px;
+    }
+    .colophon-title { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; margin-bottom: 0.4rem; }
+    .colophon-sub { font-size: 14px; font-style: italic; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .colophon-form { display: flex; gap: 0.5rem; max-width: 380px; margin: 0 auto; }
+    .colophon-form input {
+      flex: 1;
+      padding: 9px 14px;
+      border: 1px solid var(--green);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'EB Garamond', serif;
+      outline: none;
+      border-radius: 2px;
+    }
+    .colophon-form input:focus { border-color: var(--red); }
+    .colophon-form button {
+      padding: 9px 20px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      font-family: 'EB Garamond', serif;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .colophon-form button:hover { background: var(--green-light); }
+
+    /* FOOTER */
+    .site-footer {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 3px double var(--red);
+    }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; margin-bottom: 0.25rem; }
+    .footer-brand em { color: var(--red); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); font-style: italic; }
+    .footer-legal { font-size: 11px; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .site-name { font-size: 34px; }
+      .hero { padding: 2rem 1.25rem 1.5rem; }
+      .hero-title { font-size: 24px; }
+      .story-item { grid-template-columns: 36px 1fr; }
+      .story-num { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blog">
+
+    <header class="site-header">
+      <div class="site-name">Wobbly<em>Worlds</em></div>
+      <div class="site-ornament">— ✦ —</div>
+      <div class="site-tagline">A collection of fictional nonsense, lovingly written</div>
+      <nav class="site-nav">
+        <a href="#">Adventures</a>
+        <a href="#">Creatures</a>
+        <a href="#">Disasters</a>
+        <a href="#">All Stories</a>
+      </nav>
+    </header>
+
+    <div class="chapter-label">Chapter One · Latest Tale</div>
+    <div class="hero">
+      <div class="hero-title">The Day My Cat Became Mayor of a Tiny Potato Kingdom</div>
+      <div class="hero-divider">· · ·</div>
+      <p class="hero-excerpt">Nobody expected Chairman Fluffington to win the election. He didn't even know there was an election. But a knocked-over water bowl and a very confused returning officer changed everything forever.</p>
+      <div class="hero-meta">By Bruce Wayne &nbsp;·&nbsp; March 29, 2026 &nbsp;·&nbsp; 6 min read</div>
+      <button class="read-btn">Read the Story</button>
+    </div>
+
+    <div class="section-heading"><span>More Tales from the Archive</span></div>
+
+    <div class="stories-list">
+      <div class="story-item">
+        <div class="story-num">I</div>
+        <div>
+          <span class="story-tag">Space Disaster</span>
+          <div class="story-title">I Accidentally Sent My Toaster to Mars and Now It's Running for President</div>
+          <div class="story-excerpt">It started with a faulty extension cord and ended with intergalactic diplomacy. I should have just bought a new toaster.</div>
+          <div class="story-meta">Bruce Wayne · Mar 22 · 4 min read</div>
+        </div>
+      </div>
+      <div class="story-item">
+        <div class="story-num">II</div>
+        <div>
+          <span class="story-tag">Creature Feature</span>
+          <div class="story-title">The Dragon Who Was Terrified of Fire and Had to Become a Librarian</div>
+          <div class="story-excerpt">Sigmund the dragon had always preferred books to treasure. Unfortunately, books are flammable, which made things complicated.</div>
+          <div class="story-meta">Bruce Wayne · Mar 18 · 5 min read</div>
+        </div>
+      </div>
+      <div class="story-item">
+        <div class="story-num">III</div>
+        <div>
+          <span class="story-tag">Adventure</span>
+          <div class="story-title">Quest for the World's Smelliest Cheese and Why I Regret Everything</div>
+          <div class="story-excerpt">Three countries, two passports, and one very offended customs officer. The cheese was not worth it. Or was it?</div>
+          <div class="story-meta">Bruce Wayne · Mar 14 · 3 min read</div>
+        </div>
+      </div>
+      <div class="story-item">
+        <div class="story-num">IV</div>
+        <div>
+          <span class="story-tag">Chaos</span>
+          <div class="story-title">A Duck Explained Quantum Physics to Me and Now I Am More Confused</div>
+          <div class="story-excerpt">He drew diagrams in the mud. He quacked with great authority. I understood none of it, yet felt oddly enlightened.</div>
+          <div class="story-meta">Bruce Wayne · Mar 10 · 7 min read</div>
+        </div>
+      </div>
+      <div class="story-item">
+        <div class="story-num">V</div>
+        <div>
+          <span class="story-tag">Weird Eats</span>
+          <div class="story-title">The Spaghetti That Gained Sentience and Filed a Noise Complaint</div>
+          <div class="story-excerpt">It had demands. Reasonable ones, mostly. But nobody negotiates with pasta, and yet here we were.</div>
+          <div class="story-meta">Bruce Wayne · Mar 6 · 4 min read</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="colophon">
+      <div class="colophon-title">Subscribe to the Chronicles</div>
+      <div class="colophon-sub">New tales delivered to your inbox — every week, no noise.</div>
+      <div class="colophon-form">
+        <input type="email" placeholder="your@email.com" />
+        <button>Subscribe</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-brand">Wobbly<em>Worlds</em></div>
+      <div class="footer-copy">© 2026 Bruce Wayne · All weirdness reserved</div>
+      <div class="footer-legal">All stories are original works of fiction. Unauthorized reproduction is prohibited.</div>
+    </footer>
+
+  </div>
+</body>
+</html>
